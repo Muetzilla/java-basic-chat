@@ -1,15 +1,10 @@
 plugins {
     id 'java'
-    // add
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
-// add
 mainClassName = 'Main'
-
-group 'org.example'
-version '1.0-SNAPSHOT'
 
 sourceCompatibility = 15
 
@@ -25,12 +20,7 @@ sourceSets {
     }
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
-
-// add
 javafx {
-    version = "11"
+    version = "15"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }

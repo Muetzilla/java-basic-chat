@@ -11,10 +11,6 @@ public class Main {
         while (!init()); // While our input isn't valid
     }
 
-    public static void main(String[] args) {
-        new Main();
-    }
-
     private boolean init() {
         System.out.print("Do you want to host (0) or to join (1)? > "); // Tell the user what to do
 
@@ -30,5 +26,9 @@ public class Main {
                 System.out.println("Invalid Input! Try again"); // tell the user whats wrong
                 return false; // input is not valid
         }
+    }
+
+    public static void main(String[] args) {
+        new Main();
     }
 }

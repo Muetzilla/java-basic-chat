@@ -3,10 +3,7 @@ package ChatCommands;
 import GlobalStuff.MessageTypes;
 import Server.ServerClient;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
@@ -88,35 +85,40 @@ public class KickClientCommandHandler extends AbstractCommand {
         BufferedReader reader = null;
         int amountOfLines = 0;
         String filename = "kickReasons.txt";
-        try {
-            reader = new BufferedReader(new FileReader(filename));
+        File kickReasons = new File(filename);
+        if(kickReasons.exists()) {
+            try {
+                reader = new BufferedReader(new FileReader(kickReasons));
 
-            while (true) {
-                try {
-                    if (reader.readLine() == null) {
-                        break;
+                while (true) {
+                    try {
+                        if (reader.readLine() == null) {
+                            break;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    amountOfLines++;
+                }
+                try {
+                    reader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                amountOfLines++;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
-            try {
-                reader.close();
+
+            Random rand = new Random();
+            int n = rand.nextInt(amountOfLines);
+
+            try (Stream<String> all_lines = Files.lines(Paths.get(filename))) {
+                return all_lines.skip(n).findFirst().get();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        Random rand = new Random();
-        int n = rand.nextInt(amountOfLines);
-
-        try (Stream<String> all_lines = Files.lines(Paths.get(filename))) {
-            return all_lines.skip(n).findFirst().get();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            return "KickReasons.txt not found!";
         }
 
         return "";
