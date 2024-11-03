@@ -12,6 +12,6 @@
 
 ## Roadmap:
 
-- Credits
-- First Minigame
-- Client can see all other clients
+- [ ] Credits
+- [ ] First Minigame
+- [ ] Client can see all other clients
